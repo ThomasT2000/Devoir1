@@ -1,0 +1,113 @@
+{
+    "name": "load-balancer",
+    "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer",
+    "etag": "W/\"5d4cb32e-000c-4af4-802f-c849ebb4b9a8\"",
+    "type": "Microsoft.Network/loadBalancers",
+    "location": "eastus",
+    "tags": {},
+    "properties": {
+        "provisioningState": "Succeeded",
+        "resourceGuid": "c0162382-123f-4fed-bf89-75451bc08360",
+        "frontendIPConfigurations": [
+            {
+                "name": "lb-frontend",
+                "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/frontendIPConfigurations/lb-frontend",
+                "etag": "W/\"5d4cb32e-000c-4af4-802f-c849ebb4b9a8\"",
+                "type": "Microsoft.Network/loadBalancers/frontendIPConfigurations",
+                "properties": {
+                    "provisioningState": "Succeeded",
+                    "privateIPAllocationMethod": "Dynamic",
+                    "publicIPAddress": {
+                        "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/publicIPAddresses/lb-frontend-ip"
+                    },
+                    "loadBalancingRules": [
+                        {
+                            "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/loadBalancingRules/lb-HTTP-rule"
+                        }
+                    ]
+                }
+            }
+        ],
+        "backendAddressPools": [
+            {
+                "name": "lb-backend-pool",
+                "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/backendAddressPools/lb-backend-pool",
+                "etag": "W/\"5d4cb32e-000c-4af4-802f-c849ebb4b9a8\"",
+                "properties": {
+                    "provisioningState": "Succeeded",
+                    "loadBalancerBackendAddresses": [],
+                    "loadBalancingRules": [
+                        {
+                            "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/loadBalancingRules/lb-HTTP-rule"
+                        }
+                    ]
+                },
+                "type": "Microsoft.Network/loadBalancers/backendAddressPools"
+            }
+        ],
+        "loadBalancingRules": [
+            {
+                "name": "lb-HTTP-rule",
+                "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/loadBalancingRules/lb-HTTP-rule",
+                "etag": "W/\"5d4cb32e-000c-4af4-802f-c849ebb4b9a8\"",
+                "type": "Microsoft.Network/loadBalancers/loadBalancingRules",
+                "properties": {
+                    "provisioningState": "Succeeded",
+                    "frontendIPConfiguration": {
+                        "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/frontendIPConfigurations/lb-frontend"
+                    },
+                    "frontendPort": 80,
+                    "backendPort": 80,
+                    "enableFloatingIP": false,
+                    "idleTimeoutInMinutes": 15,
+                    "protocol": "Tcp",
+                    "enableDestinationServiceEndpoint": false,
+                    "enableTcpReset": true,
+                    "allowBackendPortConflict": false,
+                    "loadDistribution": "Default",
+                    "disableOutboundSnat": true,
+                    "backendAddressPool": {
+                        "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/backendAddressPools/lb-backend-pool"
+                    },
+                    "backendAddressPools": [
+                        {
+                            "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/backendAddressPools/lb-backend-pool"
+                        }
+                    ],
+                    "probe": {
+                        "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/probes/lb-health-probe"
+                    }
+                }
+            }
+        ],
+        "probes": [
+            {
+                "name": "lb-health-probe",
+                "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/probes/lb-health-probe",
+                "etag": "W/\"5d4cb32e-000c-4af4-802f-c849ebb4b9a8\"",
+                "properties": {
+                    "provisioningState": "Succeeded",
+                    "protocol": "Http",
+                    "port": 80,
+                    "requestPath": "/",
+                    "intervalInSeconds": 5,
+                    "numberOfProbes": 1,
+                    "probeThreshold": 1,
+                    "loadBalancingRules": [
+                        {
+                            "id": "/subscriptions/ca01e6f7-97ff-467d-a91b-80d9e8891b07/resourceGroups/load-balancer-rg/providers/Microsoft.Network/loadBalancers/load-balancer/loadBalancingRules/lb-HTTP-rule"
+                        }
+                    ]
+                },
+                "type": "Microsoft.Network/loadBalancers/probes"
+            }
+        ],
+        "inboundNatRules": [],
+        "outboundRules": [],
+        "inboundNatPools": []
+    },
+    "sku": {
+        "name": "Standard",
+        "tier": "Regional"
+    }
+}
