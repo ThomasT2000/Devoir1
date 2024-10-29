@@ -2,18 +2,47 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+# azure-pipelines-CI.yml
 
+# Déclenchement sur la branche principale
 trigger:
-- main
+  - main
 
+# Utilisation d'une machine virtuelle Ubuntu pour les tâches
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
+# 1. Message de bienvenue (vous pouvez le conserver pour tester le pipeline)
 - script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  displayName: 'Message de bienvenue'
 
+# 2. Validation du fichier JSON de configuration du Load Balancer
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    echo "Validation du fichier load-balancer.json"
+    jq empty load-balancer.json || exit 1  # Vérifie la syntaxe JSON
+  displayName: "Validation de la syntaxe JSON du Load Balancer"
+
+# 3. Validation des fichiers YAML pour CI et CD
+- script: |
+    echo "Validation des fichiers YAML"
+    for file in azure-pipelines-CI.yml azure-pipelines-CD.yml; do
+      echo "Validation de $file"
+      cat "$file" > /dev/null || exit 1
+    done
+  displayName: "Validation des fichiers YAML de pipeline CI et CD"
+
+# 4. Vérification du README.txt pour s'assurer qu'il est bien renseigné
+- script: |
+    echo "Vérification du fichier README.txt"
+    if [[ ! -s README.txt ]]; then
+      echo "Erreur : le fichier README.txt est vide ou non renseigné." && exit 1
+    fi
+  displayName: "Vérification du contenu du README.txt"
+
+# 5. Message final pour rappeler d'ajouter d'autres étapes si besoin
+- script: |
+    echo "Add other tasks to build, test, and deploy your project."
+    echo "See https://aka.ms/yaml for more info on configuring pipelines."
+  displayName: "Rappel pour les étapes futures"
+
